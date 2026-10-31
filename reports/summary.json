@@ -1,0 +1,84 @@
+{
+  "polyclinic_attendances_2006": 3769989,
+  "polyclinic_attendances_2019": 6691295,
+  "polyclinic_growth_2006_2019_pct": 77.5,
+  "polyclinic_cagr_2006_2019_pct": 4.51,
+  "chronic_pct_of_diagnoses": {
+    "2006": 39.6,
+    "2007": 41.2,
+    "2008": 41.8,
+    "2009": 41.5,
+    "2010": 40.4,
+    "2011": 40.2,
+    "2012": 40.7,
+    "2013": 41.2,
+    "2014": 40.8,
+    "2015": 39.9,
+    "2016": 38.3,
+    "2017": 37.3,
+    "2018": 36.0,
+    "2019": 36.1,
+    "2020": 40.0,
+    "2021": 40.0,
+    "2022": 38.3,
+    "2023": 37.7,
+    "2024": 36.7,
+    "2025": 36.1
+  },
+  "weekly_rows": 2557,
+  "weeks_with_baseline": 1747,
+  "alert_counts": [
+    {
+      "disease": "Acute Diarrhoea",
+      "status": "Above expected",
+      "weeks": 62
+    },
+    {
+      "disease": "Acute Diarrhoea",
+      "status": "Below expected",
+      "weeks": 75
+    },
+    {
+      "disease": "Acute URTI",
+      "status": "Above expected",
+      "weeks": 42
+    },
+    {
+      "disease": "Acute URTI",
+      "status": "Below expected",
+      "weeks": 55
+    },
+    {
+      "disease": "Chickenpox",
+      "status": "Above expected",
+      "weeks": 9
+    },
+    {
+      "disease": "Chickenpox",
+      "status": "Below expected",
+      "weeks": 75
+    },
+    {
+      "disease": "Conjunctivitis",
+      "status": "Above expected",
+      "weeks": 4
+    },
+    {
+      "disease": "Conjunctivitis",
+      "status": "Below expected",
+      "weeks": 101
+    },
+    {
+      "disease": "HFMD",
+      "status": "Below expected",
+      "weeks": 8
+    }
+  ],
+  "dq_issues": 3,
+  "extract_rows": {
+    "outpatient_annual": 64,
+    "polyclinic_conditions": 80,
+    "weekly_alerts": 2557,
+    "dq_issues": 3
+  }
+}

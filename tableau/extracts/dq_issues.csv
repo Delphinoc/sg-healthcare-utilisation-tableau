@@ -1,0 +1,4 @@
+dataset,record,reported_value,issue,rule,handling
+Outpatient attendances,"Public Sector Dental Clinics, 2017",106708,Value is 10% of the surrounding-year median,Ratio to median of years y-2..y+2 outside 50%-150%,"Kept as reported; excluded from validated values, totals and growth"
+Outpatient attendances,"Specialist Outpatient Clinics, 2014",453085,Value is 10% of the surrounding-year median,Ratio to median of years y-2..y+2 outside 50%-150%,"Kept as reported; excluded from validated values, totals and growth"
+Weekly polyclinic attendances,"Chickenpox, 2014-W53",19,Duplicate 2014-W52 row and missing 2014-W53 row,One row per disease and epi week,Later duplicate relabelled as 2014-W53

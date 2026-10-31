@@ -1,0 +1,5 @@
+data/processed/
+__pycache__/
+.pytest_cache/
+*.twbr
+.DS_Store

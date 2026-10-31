@@ -1,0 +1,65 @@
+year,care_setting,care_setting_short,care_level,sort_order,attendances_reported,attendances_validated,yoy_change_pct,index_2006_eq_100,neighbour_ratio,dq_status,year_total_validated,year_polyclinic_share
+2006,A&E,A&E,Emergency,1,676763,676763,,100.0,0.879,OK,8910194.0,0.4231
+2006,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,3624976,3624976,,100.0,0.965,OK,8910194.0,0.4231
+2006,Polyclinics,Polyclinics,Primary care,3,3769989,3769989,,100.0,0.97,OK,8910194.0,0.4231
+2006,Public Sector Dental Clinics,Dental,Dental,4,838466,838466,,100.0,0.946,OK,8910194.0,0.4231
+2007,A&E,A&E,Emergency,1,752122,752122,11.14,111.1,0.954,OK,9127195.0,0.4161
+2007,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,3687910,3687910,1.74,101.7,0.964,OK,9127195.0,0.4161
+2007,Polyclinics,Polyclinics,Primary care,3,3797953,3797953,0.74,100.7,0.956,OK,9127195.0,0.4161
+2007,Public Sector Dental Clinics,Dental,Dental,4,889210,889210,6.05,106.1,1.06,OK,9127195.0,0.4161
+2008,A&E,A&E,Emergency,1,788539,788539,4.84,116.5,1.002,OK,9470619.0,0.4194
+2008,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,3827275,3827275,3.78,105.6,1.011,OK,9470619.0,0.4194
+2008,Polyclinics,Polyclinics,Primary care,3,3971589,3971589,4.57,105.3,0.998,OK,9470619.0,0.4194
+2008,Public Sector Dental Clinics,Dental,Dental,4,883216,883216,-0.67,105.3,1.038,OK,9470619.0,0.4194
+2009,A&E,A&E,Emergency,1,821304,821304,4.16,121.4,0.997,OK,9704332.0,0.4285
+2009,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,3886310,3886310,1.54,107.2,0.99,OK,9704332.0,0.4285
+2009,Polyclinics,Polyclinics,Primary care,3,4157903,4157903,4.69,110.3,1.004,OK,9704332.0,0.4285
+2009,Public Sector Dental Clinics,Dental,Dental,4,838815,838815,-5.03,100.0,0.954,OK,9704332.0,0.4285
+2010,A&E,A&E,Emergency,1,858781,858781,4.56,126.9,0.978,OK,10059837.0,0.4289
+2010,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,4023686,4023686,3.53,111.0,0.991,OK,10059837.0,0.4289
+2010,Polyclinics,Polyclinics,Primary care,3,4314496,4314496,3.77,114.4,0.996,OK,10059837.0,0.4289
+2010,Public Sector Dental Clinics,Dental,Dental,4,862874,862874,2.87,102.9,0.981,OK,10059837.0,0.4289
+2011,A&E,A&E,Emergency,1,934485,934485,8.82,138.1,1.014,OK,10546469.0,0.4269
+2011,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,4234139,4234139,5.23,116.8,1.011,OK,10546469.0,0.4269
+2011,Polyclinics,Polyclinics,Primary care,3,4502043,4502043,4.35,119.4,1.008,OK,10546469.0,0.4269
+2011,Public Sector Dental Clinics,Dental,Dental,4,875802,875802,1.5,104.5,0.998,OK,10546469.0,0.4269
+2012,A&E,A&E,Emergency,1,985289,985289,5.44,145.6,1.036,OK,10845770.0,0.4254
+2012,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,4353385,4353385,2.82,120.1,1.054,OK,10845770.0,0.4254
+2012,Polyclinics,Polyclinics,Primary care,3,4614038,4614038,2.49,122.4,1.011,OK,10845770.0,0.4254
+2012,Public Sector Dental Clinics,Dental,Dental,4,893058,893058,1.97,106.5,0.982,OK,10845770.0,0.4254
+2013,A&E,A&E,Emergency,1,1006800,1006800,2.18,148.8,1.041,OK,11011015.0,0.4199
+2013,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,4436621,4436621,1.91,122.4,1.033,OK,11011015.0,0.4199
+2013,Polyclinics,Polyclinics,Primary care,3,4623623,4623623,0.21,122.6,0.998,OK,11011015.0,0.4199
+2013,Public Sector Dental Clinics,Dental,Dental,4,943971,943971,5.7,112.6,1.013,OK,11011015.0,0.4199
+2014,A&E,A&E,Emergency,1,968371,968371,-3.82,143.1,0.972,OK,,
+2014,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,453085,,,,0.099,Suspected entry error,,
+2014,Polyclinics,Polyclinics,Primary care,3,4648374,4648374,0.54,123.3,0.979,OK,,
+2014,Public Sector Dental Clinics,Dental,Dental,4,970494,970494,2.81,115.7,0.992,OK,,
+2015,A&E,A&E,Emergency,1,965426,965426,-0.3,142.7,0.965,OK,11552232.0,0.422
+2015,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,4699586,4699586,,129.6,1.0,OK,11552232.0,0.422
+2015,Polyclinics,Polyclinics,Primary care,3,4874697,4874697,4.87,129.3,0.984,OK,11552232.0,0.422
+2015,Public Sector Dental Clinics,Dental,Dental,4,1012523,1012523,4.33,120.8,1.058,OK,11552232.0,0.422
+2016,A&E,A&E,Emergency,1,1008718,1008718,4.48,149.1,1.028,OK,12290721.0,0.4283
+2016,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,4959471,4959471,5.53,136.8,1.025,OK,12290721.0,0.4283
+2016,Polyclinics,Polyclinics,Primary care,3,5263999,5263999,7.99,139.6,0.975,OK,12290721.0,0.4283
+2016,Public Sector Dental Clinics,Dental,Dental,4,1058533,1058533,4.54,126.2,1.068,OK,12290721.0,0.4283
+2017,A&E,A&E,Emergency,1,993458,993458,-1.51,146.8,0.986,OK,,
+2017,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,4973743,4973743,0.29,137.2,0.988,OK,,
+2017,Polyclinics,Polyclinics,Primary care,3,5925787,5925787,12.57,157.2,1.023,OK,,
+2017,Public Sector Dental Clinics,Dental,Dental,4,106708,,,,0.1,Suspected entry error,,
+2018,A&E,A&E,Emergency,1,1005403,1005403,1.2,148.6,1.004,OK,13518974.0,0.4678
+2018,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,5106088,5106088,2.66,140.9,1.028,OK,13518974.0,0.4678
+2018,Polyclinics,Polyclinics,Primary care,3,6323814,6323814,6.72,167.7,1.061,OK,13518974.0,0.4678
+2018,Public Sector Dental Clinics,Dental,Dental,4,1083669,1083669,,129.2,1.231,OK,13518974.0,0.4678
+2019,A&E,A&E,Emergency,1,1081527,1081527,7.57,159.8,1.14,OK,14128902.0,0.4736
+2019,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,5285271,5285271,3.51,145.8,1.049,OK,14128902.0,0.4736
+2019,Polyclinics,Polyclinics,Primary care,3,6691295,6691295,5.81,177.5,1.098,OK,14128902.0,0.4736
+2019,Public Sector Dental Clinics,Dental,Dental,4,1070809,1070809,-1.19,127.7,1.316,OK,14128902.0,0.4736
+2020,A&E,A&E,Emergency,1,903361,903361,-16.47,133.5,0.899,OK,12076609.0,0.4962
+2020,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,4478648,4478648,-15.26,123.5,0.858,OK,12076609.0,0.4962
+2020,Polyclinics,Polyclinics,Primary care,3,5992676,5992676,-10.44,159.0,0.948,OK,12076609.0,0.4962
+2020,Public Sector Dental Clinics,Dental,Dental,4,701924,701924,-34.45,83.7,0.656,OK,12076609.0,0.4962
+2021,A&E,A&E,Emergency,1,890153,890153,-1.46,131.5,0.897,OK,13235415.0,0.4685
+2021,Specialist Outpatient Clinics,SOCs,Hospital outpatient,2,5218526,5218526,16.52,144.0,1.069,OK,13235415.0,0.4685
+2021,Polyclinics,Polyclinics,Primary care,3,6200710,6200710,3.47,164.5,0.978,OK,13235415.0,0.4685
+2021,Public Sector Dental Clinics,Dental,Dental,4,926026,926026,31.93,110.4,1.045,OK,13235415.0,0.4685

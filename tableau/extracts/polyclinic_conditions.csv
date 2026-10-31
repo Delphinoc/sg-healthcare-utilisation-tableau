@@ -1,0 +1,81 @@
+year,condition,condition_short,condition_type,sort_order,pct_of_diagnoses,pp_change_yoy,rank_in_year,year_chronic_pct_of_diagnoses
+2006,Hyperlipidemia,Hyperlipidaemia,Chronic,1,13.8,,2,39.6
+2006,Hypertensive Disease,Hypertension,Chronic,2,17.2,,1,39.6
+2006,Diabetes Mellitus,Diabetes,Chronic,3,8.6,,4,39.6
+2006,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,11.9,,3,39.6
+2007,Hyperlipidemia,Hyperlipidaemia,Chronic,1,14.9,1.1,2,41.2
+2007,Hypertensive Disease,Hypertension,Chronic,2,17.3,0.1,1,41.2
+2007,Diabetes Mellitus,Diabetes,Chronic,3,9.0,0.4,4,41.2
+2007,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,11.6,-0.3,3,41.2
+2008,Hyperlipidemia,Hyperlipidaemia,Chronic,1,15.5,0.6,2,41.8
+2008,Hypertensive Disease,Hypertension,Chronic,2,17.2,-0.1,1,41.8
+2008,Diabetes Mellitus,Diabetes,Chronic,3,9.1,0.1,4,41.8
+2008,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,10.8,-0.8,3,41.8
+2009,Hyperlipidemia,Hyperlipidaemia,Chronic,1,15.8,0.3,2,41.5
+2009,Hypertensive Disease,Hypertension,Chronic,2,16.6,-0.6,1,41.5
+2009,Diabetes Mellitus,Diabetes,Chronic,3,9.1,0.0,4,41.5
+2009,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,11.1,0.3,3,41.5
+2010,Hyperlipidemia,Hyperlipidaemia,Chronic,1,15.6,-0.2,2,40.4
+2010,Hypertensive Disease,Hypertension,Chronic,2,15.9,-0.7,1,40.4
+2010,Diabetes Mellitus,Diabetes,Chronic,3,8.9,-0.2,4,40.4
+2010,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,11.2,0.1,3,40.4
+2011,Hyperlipidemia,Hyperlipidaemia,Chronic,1,15.7,0.1,1,40.2
+2011,Hypertensive Disease,Hypertension,Chronic,2,15.7,-0.2,1,40.2
+2011,Diabetes Mellitus,Diabetes,Chronic,3,8.8,-0.1,4,40.2
+2011,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,10.6,-0.6,3,40.2
+2012,Hyperlipidemia,Hyperlipidaemia,Chronic,1,16.0,0.3,1,40.7
+2012,Hypertensive Disease,Hypertension,Chronic,2,15.8,0.1,2,40.7
+2012,Diabetes Mellitus,Diabetes,Chronic,3,8.9,0.1,4,40.7
+2012,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,10.5,-0.1,3,40.7
+2013,Hyperlipidemia,Hyperlipidaemia,Chronic,1,16.2,0.2,1,41.2
+2013,Hypertensive Disease,Hypertension,Chronic,2,15.9,0.1,2,41.2
+2013,Diabetes Mellitus,Diabetes,Chronic,3,9.1,0.2,4,41.2
+2013,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,9.6,-0.9,3,41.2
+2014,Hyperlipidemia,Hyperlipidaemia,Chronic,1,16.0,-0.2,1,40.8
+2014,Hypertensive Disease,Hypertension,Chronic,2,15.6,-0.3,2,40.8
+2014,Diabetes Mellitus,Diabetes,Chronic,3,9.2,0.1,3,40.8
+2014,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,9.2,-0.4,3,40.8
+2015,Hyperlipidemia,Hyperlipidaemia,Chronic,1,15.6,-0.4,1,39.9
+2015,Hypertensive Disease,Hypertension,Chronic,2,15.0,-0.6,2,39.9
+2015,Diabetes Mellitus,Diabetes,Chronic,3,9.3,0.1,3,39.9
+2015,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,9.3,0.1,3,39.9
+2016,Hyperlipidemia,Hyperlipidaemia,Chronic,1,14.9,-0.7,1,38.3
+2016,Hypertensive Disease,Hypertension,Chronic,2,14.2,-0.8,2,38.3
+2016,Diabetes Mellitus,Diabetes,Chronic,3,9.2,-0.1,3,38.3
+2016,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,9.2,-0.1,3,38.3
+2017,Hyperlipidemia,Hyperlipidaemia,Chronic,1,14.4,-0.5,1,37.3
+2017,Hypertensive Disease,Hypertension,Chronic,2,13.7,-0.5,2,37.3
+2017,Diabetes Mellitus,Diabetes,Chronic,3,9.2,0.0,3,37.3
+2017,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,9.2,0.0,3,37.3
+2018,Hyperlipidemia,Hyperlipidaemia,Chronic,1,13.8,-0.6,1,36.0
+2018,Hypertensive Disease,Hypertension,Chronic,2,13.2,-0.5,2,36.0
+2018,Diabetes Mellitus,Diabetes,Chronic,3,9.0,-0.2,4,36.0
+2018,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,9.4,0.2,3,36.0
+2019,Hyperlipidemia,Hyperlipidaemia,Chronic,1,13.7,-0.1,1,36.1
+2019,Hypertensive Disease,Hypertension,Chronic,2,13.3,0.1,2,36.1
+2019,Diabetes Mellitus,Diabetes,Chronic,3,9.1,0.1,3,36.1
+2019,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,8.6,-0.8,4,36.1
+2020,Hyperlipidemia,Hyperlipidaemia,Chronic,1,15.1,1.4,1,40.0
+2020,Hypertensive Disease,Hypertension,Chronic,2,14.4,1.1,2,40.0
+2020,Diabetes Mellitus,Diabetes,Chronic,3,10.5,1.4,3,40.0
+2020,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,4.7,-3.9,4,40.0
+2021,Hyperlipidemia,Hyperlipidaemia,Chronic,1,15.2,0.1,1,40.0
+2021,Hypertensive Disease,Hypertension,Chronic,2,14.5,0.1,2,40.0
+2021,Diabetes Mellitus,Diabetes,Chronic,3,10.3,-0.2,3,40.0
+2021,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,3.6,-1.1,4,40.0
+2022,Hyperlipidemia,Hyperlipidaemia,Chronic,1,14.8,-0.4,1,38.3
+2022,Hypertensive Disease,Hypertension,Chronic,2,13.7,-0.8,2,38.3
+2022,Diabetes Mellitus,Diabetes,Chronic,3,9.8,-0.5,3,38.3
+2022,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,6.6,3.0,4,38.3
+2023,Hyperlipidemia,Hyperlipidaemia,Chronic,1,14.7,-0.1,1,37.7
+2023,Hypertensive Disease,Hypertension,Chronic,2,13.4,-0.3,2,37.7
+2023,Diabetes Mellitus,Diabetes,Chronic,3,9.6,-0.2,3,37.7
+2023,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,7.1,0.5,4,37.7
+2024,Hyperlipidemia,Hyperlipidaemia,Chronic,1,14.5,-0.2,1,36.7
+2024,Hypertensive Disease,Hypertension,Chronic,2,12.9,-0.5,2,36.7
+2024,Diabetes Mellitus,Diabetes,Chronic,3,9.3,-0.3,3,36.7
+2024,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,6.5,-0.6,4,36.7
+2025,Hyperlipidemia,Hyperlipidaemia,Chronic,1,14.5,0.0,1,36.1
+2025,Hypertensive Disease,Hypertension,Chronic,2,12.5,-0.4,2,36.1
+2025,Diabetes Mellitus,Diabetes,Chronic,3,9.1,-0.2,3,36.1
+2025,Acute Upper Respiratory Tract Infection including Influenza,Acute URTI,Acute,4,6.3,-0.2,4,36.1
