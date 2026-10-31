@@ -58,7 +58,7 @@ SOURCES = {
         "id": "federated.weekly",
         "caption": "Weekly polyclinic attendances",
         "cols": {
-            "week_start": DIM_S, "week_end": DIM_S, "epi_year": DIM_I, "epi_week_num": DIM_I,
+            "week_start": DATE, "week_end": DATE, "epi_year": DIM_I, "epi_week_num": DIM_I,
             "epi_week_label": DIM_S, "year_fraction": MEA_R, "disease": DIM_S, "disease_short": DIM_S, "sort_order": DIM_I,
             "avg_daily_attendances": MEA_I, "baseline_n": MEA_R, "baseline_mean": MEA_R,
             "baseline_sd": MEA_R, "upper_limit": MEA_R, "lower_limit": MEA_R, "ratio_to_expected": MEA_R,
@@ -95,6 +95,21 @@ def simple_id(name: str) -> str:
     return f"<simple-id uuid='{{{str(uuid.uuid5(uuid.NAMESPACE_URL, 'sg-health/' + name)).upper()}}}' />"
 
 
+CAPTIONS = {
+    "attendances_validated": "Attendances", "attendances_reported": "Attendances (reported)",
+    "year_total_validated": "Total attendances", "index_2006_eq_100": "Index (2006 = 100)",
+    "yoy_change_pct": "Change vs previous year (%)", "care_setting_short": "Care setting",
+    "pct_of_diagnoses": "% of diagnoses", "condition_short": "Condition", "condition_type": "Condition type",
+    "ratio_to_expected": "Ratio to expected", "alert_status": "Alert status", "disease_short": "Disease",
+    "epi_year": "Year", "epi_week_num": "Epi week", "week_start": "Week", "year": "Year",
+    "record": "Record", "issue": "Issue", "handling": "Handling", "reported_value": "Reported value",
+}
+
+
+def caption(col: str) -> str:
+    return CAPTIONS.get(col, col.replace("_", " ").title())
+
+
 def q(s: str) -> str:
     return quoteattr(s)
 
@@ -106,7 +121,7 @@ def datasource_xml(key: str, spec: dict) -> str:
         for i, (c, (dt, _, _)) in enumerate(spec["cols"].items())
     )
     ds_cols = "".join(
-        f"<column caption={q(c.replace('_', ' ').title())} datatype={q(dt)} name={q(f'[{c}]')} "
+        f"<column caption={q(caption(c))} datatype={q(dt)} name={q(f'[{c}]')} "
         f"role={q(role)} type={q(typ)} />"
         for c, (dt, role, typ) in spec["cols"].items()
     )
@@ -116,10 +131,14 @@ def datasource_xml(key: str, spec: dict) -> str:
         for name, (cap, formula) in spec["calcs"].items()
     )
     styles = ""
+    palette_instances = ""
     for (src, field), cmap in PALETTES.items():
         if src != key:
             continue
-        maps = "".join(f"<map to={q(col)}><bucket>{escape(chr(34) + m + chr(34))}</bucket></map>"
+        # Tableau drops a data-source palette unless the field instance is declared too.
+        palette_instances += (f"<column-instance column={q(f'[{field}]')} derivation='None' "
+                              f"name={q(f'[none:{field}:nk]')} pivot='key' type='nominal' />")
+        maps = "".join(f"<map to={q(col.lower())}><bucket>{escape(chr(34) + m + chr(34))}</bucket></map>"
                        for m, col in cmap.items())
         styles += (f"<style-rule element='mark'><encoding attr='color' field={q(f'[none:{field}:nk]')} "
                    f"type='palette'>{maps}</encoding></style-rule>")
@@ -133,7 +152,7 @@ def datasource_xml(key: str, spec: dict) -> str:
         f"<relation connection={q('textscan.' + key)} name={q(fname)} table={q(f'[{key}#csv]')} type='table'>"
         f"<columns character-set='UTF-8' header='yes' locale='en_GB' separator=','>{rel_cols}</columns>"
         f"</relation></connection>"
-        f"<aliases enabled='yes' />{ds_cols}{calc_cols}"
+        f"<aliases enabled='yes' />{ds_cols}{calc_cols}{palette_instances}"
         f"<layout dim-ordering='alphabetic' dim-percentage='0.5' measure-ordering='alphabetic' "
         f"measure-percentage='0.4' show-structure='true' />{style_xml}"
         f"<semantic-values><semantic-value key='[Country].[Name]' value='&quot;Singapore&quot;' /></semantic-values>"
@@ -177,7 +196,7 @@ class F:
             return (f"<column caption={q(cap)} datatype='real' name={q(f'[{self.col}]')} role='measure' "
                     f"type='quantitative'><calculation class='tableau' formula={q(formula)} /></column>")
         dt, role, typ = spec["cols"][self.col]
-        return (f"<column caption={q(self.col.replace('_', ' ').title())} datatype={q(dt)} "
+        return (f"<column caption={q(caption(self.col))} datatype={q(dt)} "
                 f"name={q(f'[{self.col}]')} role={q(role)} type={q(typ)} />")
 
 
@@ -223,6 +242,12 @@ def worksheet(name: str, src: str, rows: list[F], cols: list[F], mark: str,
         enc += f"<size column={q(size.ref)} />"
     if detail:
         enc += f"<lod column={q(detail.ref)} />"
+    ws_style = ""
+    if color and (src, color.col) in PALETTES:
+        maps = "".join(f"<map to={q(c.lower())}><bucket>{escape(chr(34) + m + chr(34))}</bucket></map>"
+                       for m, c in PALETTES[(src, color.col)].items())
+        ws_style = (f"<style><style-rule element='mark'><encoding attr='color' field={q(color.ref)} "
+                    f"type='palette'>{maps}</encoding></style-rule></style>")
     filt = "".join(member_filter(f, m, n) for f, m, n in filters)
     if filters:
         filt += "<slices>" + "".join(f"<column>{escape(f.ref)}</column>" for f, _, _ in filters) + "</slices>"
@@ -233,7 +258,7 @@ def worksheet(name: str, src: str, rows: list[F], cols: list[F], mark: str,
         f"<worksheet name={q(name)}>{title_xml}<table><view>"
         f"<datasources><datasource caption={q(SOURCES[src]['caption'])} name={q(sid)} /></datasources>"
         f"<datasource-dependencies datasource={q(sid)}>{deps}</datasource-dependencies>"
-        f"{filt}<aggregation value='true' /></view><style />"
+        f"{filt}<aggregation value='true' /></view>{ws_style or '<style />'}"
         f"<panes><pane selection-relaxation-option='selection-relaxation-allow'>"
         f"<view><breakdown value='auto' /></view><mark class={q(mark)} />"
         f"<encodings>{enc}</encodings></pane></panes>"
@@ -274,7 +299,7 @@ SHEETS = [
               title="Chronic conditions (hyperlipidaemia, hypertension, diabetes) vs acute URTI"),
     worksheet("Weekly Ratio to Expected", W,
               rows=[dim(W, "disease_short"), mea(W, "ratio_to_expected", "Avg")],
-              cols=[mea(W, "year_fraction", "Avg")], mark="Circle",
+              cols=[F(W, "week_start", "Day-Trunc", "qk")], mark="Circle",
               color=dim(W, "alert_status"), detail=dim(W, "epi_week_label"),
               title="Weekly attendances as a ratio of expected (1.0 = baseline mean)"),
     worksheet("Alert Calendar", W,
@@ -309,6 +334,12 @@ def sheet_zone(name, x, y, w, h) -> str:
     return f"<zone h='{h}' id='{next(_zid)}' name={q(name)} w='{w}' x='{x}' y='{y}' />"
 
 
+def legend_zone(sheet, src, field, x, y, w, h) -> str:
+    param = f"[{SOURCES[src]['id']}].[none:{field}:nk]"
+    return (f"<zone h='{h}' id='{next(_zid)}' name={q(sheet)} param={q(param)} type-v2='color' "
+            f"w='{w}' x='{x}' y='{y}' />")
+
+
 def dashboard(name: str, zones: list[str]) -> str:
     sources = "".join(
         f"<datasource caption={q(v['caption'])} name={q(v['id'])} />" for v in SOURCES.values()
@@ -332,29 +363,33 @@ DASHBOARDS = {
     "1 Demand": [
         text_zone(0, 0, 100000, 9000, [
             ("Singapore public outpatient demand, 2006–2021", 18, True),
-            ("Polyclinic attendances 6.69M in 2019 (+77.5% since 2006)  ·  Polyclinic share 47.4% of public outpatient attendances  ·  2 suspected entry errors excluded", 11, False)]),
-        sheet_zone("Attendances by Care Setting", 0, 9000, 60000, 45000),
-        sheet_zone("Growth Index", 60000, 9000, 40000, 45000),
-        sheet_zone("Total Attendances", 0, 54000, 60000, 41000),
-        sheet_zone("2020 Change by Setting", 60000, 54000, 40000, 41000),
+            ("Polyclinic attendances +77.5% (2006–2019)  ·  47.4% of public outpatient attendances in 2019  ·  2 suspected entry errors excluded", 11, False)]),
+        sheet_zone("Attendances by Care Setting", 0, 9000, 50000, 45000),
+        sheet_zone("Growth Index", 50000, 9000, 38000, 45000),
+        legend_zone("Attendances by Care Setting", O, "care_setting_short", 88000, 9000, 12000, 45000),
+        sheet_zone("Total Attendances", 0, 54000, 50000, 41000),
+        sheet_zone("2020 Change by Setting", 50000, 54000, 50000, 41000),
         text_zone(0, 95000, 100000, 5000, [(SOURCE_NOTE, 9, False)]),
     ],
     "2 Chronic Disease": [
         text_zone(0, 0, 100000, 9000, [
             ("Chronic disease in Singapore's polyclinics, 2006–2025", 18, True),
-            ("Hyperlipidaemia, hypertension and diabetes = 36–42% of all diagnoses each year (36.1% in 2025)  ·  URTI fell from 8.6% (2019) to 3.6% (2021)", 11, False)]),
-        sheet_zone("Share of Diagnoses", 0, 9000, 100000, 46000),
-        sheet_zone("Chronic vs Acute", 0, 55000, 100000, 40000),
+            ("Hyperlipidaemia, hypertension and diabetes = 36–42% of all diagnoses (36.1% in 2025)  ·  URTI fell from 8.6% (2019) to 3.6% (2021)", 11, False)]),
+        sheet_zone("Share of Diagnoses", 0, 9000, 88000, 46000),
+        legend_zone("Share of Diagnoses", C, "condition_short", 88000, 9000, 12000, 46000),
+        sheet_zone("Chronic vs Acute", 0, 55000, 88000, 40000),
+        legend_zone("Chronic vs Acute", C, "condition_type", 88000, 55000, 12000, 40000),
         text_zone(0, 95000, 100000, 5000, [
             ("Shares are of all diagnoses (several per visit possible) and exclude preventive-care visits. " + SOURCE_NOTE, 9, False)]),
     ],
     "3 Weekly Alerts": [
         text_zone(0, 0, 100000, 9000, [
             ("Weekly polyclinic attendances vs expected range, 2012–2022", 18, True),
-            ("Expected range = mean ± 2 SD of the same weeks in the previous 5 years. 2020: 40–46 of 53 weeks below expected for every acute disease.", 11, False)]),
-        sheet_zone("Weekly Ratio to Expected", 0, 9000, 58000, 86000),
-        sheet_zone("Alert Calendar", 58000, 9000, 42000, 66000),
-        sheet_zone("Data Quality Log", 58000, 75000, 42000, 20000),
+            ("Expected range = mean ± 2 SD of the same weeks in the previous 5 years  ·  2020: 40–46 of 53 weeks below expected for every acute disease", 11, False)]),
+        sheet_zone("Weekly Ratio to Expected", 0, 9000, 50000, 86000),
+        sheet_zone("Alert Calendar", 50000, 9000, 38000, 66000),
+        legend_zone("Alert Calendar", W, "alert_status", 88000, 9000, 12000, 66000),
+        sheet_zone("Data Quality Log", 50000, 75000, 50000, 20000),
         text_zone(0, 95000, 100000, 5000, [
             ("Screening flags for review, not proof of an outbreak. The rule does not adjust for population growth. " + SOURCE_NOTE, 9, False)]),
     ],
@@ -371,7 +406,10 @@ def windows_xml() -> str:
         for n in SHEET_NAMES
     )
     ds = "".join(
-        f"<window class='dashboard' maximized='true' name={q(n)}><viewpoints /><active id='-1' />"
+        f"<window class='dashboard' maximized='true' name={q(n)}><viewpoints>"
+        + "".join(f"<viewpoint name={q(z.split('name=', 1)[1].split(' w=', 1)[0].strip(chr(39)+chr(34)))} />"
+                  for z in DASHBOARDS[n] if "type-v2=" not in z)
+        + f"</viewpoints><active id='-1' />"
         f"<device-preview visible='false' />{simple_id('win/' + n)}</window>"
         for n in DASHBOARDS)
     return f"<windows source-height='30'>{ds}{ws}</windows>"

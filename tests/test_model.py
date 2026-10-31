@@ -196,3 +196,28 @@ def test_data_dictionary_covers_every_extract_column(extracts):
     for f in extracts.glob("*.csv"):
         for col in pd.read_csv(f, nrows=0).columns:
             assert f"`{col}`" in text, f"{f.name}.{col} not documented"
+
+
+# --- Tableau workbook --------------------------------------------------------
+
+def test_workbook_structure():
+    """Checks the rules Tableau enforced when opening the generated workbook."""
+    import xml.etree.ElementTree as ET
+    import build_workbook as bw
+
+    root = ET.fromstring(bw.workbook_xml().split("\n", 1)[1])
+    sheets = {w.get("name") for w in root.iter("worksheet")}
+    assert len(sheets) == 9
+    for d in root.iter("dashboard"):
+        zoned = {z.get("name") for z in d.iter("zone") if z.get("name") and z.get("type-v2") is None}
+        assert zoned <= sheets
+        window = next(w for w in root.find("windows") if w.get("name") == d.get("name"))
+        # Each sheet on a dashboard must be listed as a viewpoint, or Tableau refuses to load it.
+        assert {v.get("name") for v in window.iter("viewpoint")} == zoned
+        assert d.find("devicelayouts/devicelayout") is not None
+    for ds in root.find("datasources"):
+        children = [c.tag for c in ds]
+        assert children.index("layout") < children.index("style")
+        # A palette is only kept if its field instance is declared on the data source.
+        for enc in ds.iter("encoding"):
+            assert any(ci.get("name") == enc.get("field") for ci in ds.findall("column-instance"))
