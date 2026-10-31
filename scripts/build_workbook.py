@@ -318,7 +318,7 @@ def dashboard(name: str, zones: list[str]) -> str:
         f"<datasources>{sources}</datasources>"
         f"<zones><zone h='100000' id='{next(_zid)}' type-v2='layout-basic' w='100000' x='0' y='0'>"
         f"{''.join(zones)}</zone></zones>"
-        f"<devicelayouts><devicelayout auto-generated='true' name='Phone'>"
+        f"<devicelayouts><devicelayout name='Phone'>"
         f"<size maxheight='700' minheight='700' sizing-mode='vscroll' />"
         f"<zones><zone h='100000' id='{next(_zid)}' type-v2='layout-basic' w='100000' x='0' y='0' />"
         f"</zones></devicelayout></devicelayouts>{simple_id('db/' + name)}</dashboard>"
