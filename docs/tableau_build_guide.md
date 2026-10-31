@@ -168,7 +168,7 @@ ELSE 0 END
 1. Add a navigation button (**Objects → Navigation**) on each dashboard to move between the three pages.
 2. **File → Save to Tableau Public As…** → title "Singapore Public Healthcare Utilisation & Chronic Disease".
 3. On Tableau Public, open the viz → **Edit details**: add the GitHub link and a one-paragraph description.
-4. Take a screenshot of each dashboard into `docs/dashboard/` (`01_demand.png`, `02_chronic.png`, `03_alerts.png`) and paste the Tableau Public link into the README.
+4. Export each dashboard image (**Dashboard → Export Image**) into `docs/dashboard/` (`01_demand.png`, `02_chronic.png`, `03_alerts.png`) and paste the Tableau Public link into the README.
 
 ## Check before publishing
 
