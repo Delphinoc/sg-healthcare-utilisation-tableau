@@ -209,6 +209,12 @@ def worksheet(name: str, src: str, rows: list[F], cols: list[F], mark: str,
               title: str | None = None) -> str:
     fields = {f.col: f for f in [*rows, *cols, *(x for x in (color, text, size) if x), *(x[0] for x in filters), *extra]}
     instances = {f.inst: f for f in [*rows, *cols, *(x for x in (color, text, size) if x), *(x[0] for x in filters), *extra]}
+    # Columns used inside calculated fields must also be declared on the sheet.
+    import re
+    for f in list(fields.values()):
+        if f.calc:
+            for base in re.findall(r"\[([^\]]+)\]", SOURCES[src]["calcs"][f.col][1]):
+                fields.setdefault(base, F(src, base))
     deps = "".join(f.column_xml() for f in fields.values()) + "".join(f.instance_xml() for f in instances.values())
     sid = SOURCES[src]["id"]
     enc = ""
