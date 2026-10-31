@@ -39,7 +39,7 @@ Three issues were found and logged in [`tableau/extracts/dq_issues.csv`](tableau
 data/raw/*.csv  ──►  01_staging.sql   typed staging tables
                      02_dimensions.sql   care setting, condition, disease, epi-week calendar
                      03_facts.sql   validated facts, KPIs, alert flags, DQ log
-                ──►  tableau/extracts/*.csv  ──►  Tableau Public dashboard
+                ──►  tableau/extracts/*.csv  ──►  scripts/build_workbook.py  ──►  tableau/*.twbx  ──►  Tableau Public
 ```
 
 - **Facts:** `fct_outpatient_annual`, `fct_outpatient_year_total`, `fct_polyclinic_conditions`, `fct_chronic_share`, `fct_weekly_disease`, `fct_dq_issues`
@@ -63,7 +63,7 @@ pip install -r requirements.txt
 python scripts/build_model.py     # builds data/processed/sg_healthcare.duckdb and tableau/extracts/
 python -m pytest
 ```
-Then follow [`docs/tableau_build_guide.md`](docs/tableau_build_guide.md) to build the dashboard.
+Then open `tableau/sg_healthcare_utilisation.twbx` in Tableau Public. To regenerate it, run `python scripts/build_workbook.py`. The manual build steps are in [`docs/tableau_build_guide.md`](docs/tableau_build_guide.md).
 
 ## Limitations
 
