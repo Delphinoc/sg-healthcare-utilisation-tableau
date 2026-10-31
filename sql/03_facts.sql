@@ -147,6 +147,8 @@ SELECT
     ROUND(b.baseline_sd, 1)                                AS baseline_sd,
     CASE WHEN b.baseline_n >= 15 THEN ROUND(b.baseline_mean + 2 * b.baseline_sd, 1) END AS upper_limit,
     CASE WHEN b.baseline_n >= 15 THEN ROUND(GREATEST(b.baseline_mean - 2 * b.baseline_sd, 0), 1) END AS lower_limit,
+    CASE WHEN b.baseline_n >= 15 AND b.baseline_mean > 0
+         THEN ROUND(f.avg_daily_attendances / b.baseline_mean, 3) END AS ratio_to_expected,
     CASE
         WHEN b.baseline_n < 15 THEN 'No baseline'
         WHEN f.avg_daily_attendances > b.baseline_mean + 2 * b.baseline_sd THEN 'Above expected'

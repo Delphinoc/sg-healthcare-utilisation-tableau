@@ -42,6 +42,7 @@ The 2020 drops (e.g. Dental −34%) pass the neighbour-ratio rule because they a
 | Polyclinic share | Polyclinic attendances / total public outpatient attendances |
 | Chronic share of diagnoses | Sum of the % of polyclinic diagnoses for hyperlipidaemia, hypertension and diabetes |
 | Expected range (weekly) | Historical limits method: mean ± 2 SD of the same disease's values in the previous 5 years, weeks w−2..w+2 (week 53 uses weeks 49–53). Needs ≥15 baseline values (three prior years) |
+| Ratio to expected | Weekly average daily attendances / baseline mean, so diseases of different sizes share one scale |
 | Alert status | `Above expected` / `Below expected` when the week is outside the expected range, `Within expected` otherwise, `No baseline` before three prior years exist |
 
 The alert rule is a **screening flag** for review, not a statistical test of an outbreak. Baselines for 2020–2022 include pre-COVID years, so pandemic weeks appear as `Below expected`.
@@ -98,6 +99,7 @@ The alert rule is a **screening flag** for review, not a statistical test of an 
 | `baseline_sd` | Sample standard deviation of the baseline values |
 | `upper_limit` | baseline_mean + 2 × baseline_sd (blank without a baseline) |
 | `lower_limit` | max(baseline_mean − 2 × baseline_sd, 0) (blank without a baseline) |
+| `ratio_to_expected` | avg_daily_attendances / baseline_mean (1.0 = typical level; blank without a baseline) |
 | `alert_status` | Above expected, Below expected, Within expected or No baseline |
 | `dq_note` | Data-quality note for the row, if any |
 

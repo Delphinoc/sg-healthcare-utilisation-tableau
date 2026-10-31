@@ -61,13 +61,10 @@ SOURCES = {
             "week_start": DATE, "week_end": DATE, "epi_year": DIM_I, "epi_week_num": DIM_I,
             "epi_week_label": DIM_S, "disease": DIM_S, "disease_short": DIM_S, "sort_order": DIM_I,
             "avg_daily_attendances": MEA_I, "baseline_n": MEA_R, "baseline_mean": MEA_R,
-            "baseline_sd": MEA_R, "upper_limit": MEA_R, "lower_limit": MEA_R,
+            "baseline_sd": MEA_R, "upper_limit": MEA_R, "lower_limit": MEA_R, "ratio_to_expected": MEA_R,
             "alert_status": DIM_S, "dq_note": DIM_S,
         },
-        "calcs": {
-            "Calculation_pct_expected": ("Attendances vs Expected",
-                                         "SUM([avg_daily_attendances]) / SUM([baseline_mean])"),
-        },
+        "calcs": {},
     },
     "dq_issues": {
         "id": "federated.dq",
@@ -273,9 +270,10 @@ SHEETS = [
               rows=[mea(C, "pct_of_diagnoses")], cols=[dim(C, "year", "ok")], mark="Area",
               color=dim(C, "condition_type"),
               title="Chronic conditions (hyperlipidaemia, hypertension, diabetes) vs acute URTI"),
-    worksheet("Attendances vs Expected", W,
-              rows=[dim(W, "disease_short")], cols=[F(W, "week_start", "Day-Trunc", "qk")], mark="Circle",
-              color=dim(W, "alert_status"), extra=[F(W, "Calculation_pct_expected", "User", "qk", calc=True)],
+    worksheet("Weekly Ratio to Expected", W,
+              rows=[dim(W, "disease_short"), mea(W, "ratio_to_expected", "Avg")],
+              cols=[F(W, "week_start", "Day-Trunc", "qk")], mark="Circle",
+              color=dim(W, "alert_status"),
               title="Weekly attendances as a ratio of expected (1.0 = baseline mean)"),
     worksheet("Alert Calendar", W,
               rows=[dim(W, "disease_short"), dim(W, "epi_year", "ok")], cols=[dim(W, "epi_week_num", "ok")],
@@ -287,11 +285,6 @@ SHEETS = [
               title="Data-quality issues found and how they are handled"),
 ]
 
-# The ratio chart needs the calculated field on Rows inside each disease pane.
-SHEETS[6] = SHEETS[6].replace(
-    f"<rows>{escape(dim(W, 'disease_short').ref)}</rows>",
-    f"<rows>{escape(dim(W, 'disease_short').ref + ' / ' + F(W, 'Calculation_pct_expected', 'User', 'qk', calc=True).ref)}</rows>",
-)
 SHEET_NAMES = [s.split("name=", 1)[1].split(">", 1)[0].strip("\"'") for s in SHEETS]
 
 
@@ -357,7 +350,7 @@ DASHBOARDS = {
         text_zone(0, 0, 100000, 9000, [
             ("Weekly polyclinic attendances vs expected range, 2012–2022", 18, True),
             ("Expected range = mean ± 2 SD of the same weeks in the previous 5 years. 2020: 40–46 of 53 weeks below expected for every acute disease.", 11, False)]),
-        sheet_zone("Attendances vs Expected", 0, 9000, 58000, 86000),
+        sheet_zone("Weekly Ratio to Expected", 0, 9000, 58000, 86000),
         sheet_zone("Alert Calendar", 58000, 9000, 42000, 66000),
         sheet_zone("Data Quality Log", 58000, 75000, 42000, 20000),
         text_zone(0, 95000, 100000, 5000, [
