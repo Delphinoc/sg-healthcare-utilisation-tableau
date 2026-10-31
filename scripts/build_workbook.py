@@ -13,6 +13,8 @@ import zipfile
 from pathlib import Path
 from xml.sax.saxutils import escape, quoteattr
 
+import uuid
+
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -91,6 +93,11 @@ PALETTES = {
 }
 
 
+def simple_id(name: str) -> str:
+    """Stable simple-id element for a sheet, dashboard or window."""
+    return f"<simple-id uuid='{{{str(uuid.uuid5(uuid.NAMESPACE_URL, 'sg-health/' + name)).upper()}}}' />"
+
+
 def q(s: str) -> str:
     return quoteattr(s)
 
@@ -119,7 +126,7 @@ def datasource_xml(key: str, spec: dict) -> str:
                        for m, col in cmap.items())
         styles += (f"<style-rule element='mark'><encoding attr='color' field={q(f'[none:{field}:nk]')} "
                    f"type='palette'>{maps}</encoding></style-rule>")
-    style_xml = f"<style>{styles}</style>" if styles else ""
+    style_xml = f"<style>{styles}</style>"
     return (
         f"<datasource caption={q(spec['caption'])} inline='true' name={q(spec['id'])} version='18.1'>"
         f"<connection class='federated'><named-connections>"
@@ -129,8 +136,9 @@ def datasource_xml(key: str, spec: dict) -> str:
         f"<relation connection={q('textscan.' + key)} name={q(fname)} table={q(f'[{key}#csv]')} type='table'>"
         f"<columns character-set='UTF-8' header='yes' locale='en_GB' separator=','>{rel_cols}</columns>"
         f"</relation></connection>"
-        f"<aliases enabled='yes' />{ds_cols}{calc_cols}{style_xml}"
-        f"<layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />"
+        f"<aliases enabled='yes' />{ds_cols}{calc_cols}"
+        f"<layout dim-ordering='alphabetic' dim-percentage='0.5' measure-ordering='alphabetic' "
+        f"measure-percentage='0.4' show-structure='true' />{style_xml}"
         f"<semantic-values><semantic-value key='[Country].[Name]' value='&quot;Singapore&quot;' /></semantic-values>"
         f"</datasource>"
     )
@@ -225,7 +233,7 @@ def worksheet(name: str, src: str, rows: list[F], cols: list[F], mark: str,
         f"<view><breakdown value='auto' /></view><mark class={q(mark)} />"
         f"<encodings>{enc}</encodings></pane></panes>"
         f"<rows>{escape(shelf(rows))}</rows><cols>{escape(shelf(cols))}</cols>"
-        f"</table></worksheet>"
+        f"</table>{simple_id('ws/' + name)}</worksheet>"
     )
 
 
@@ -301,11 +309,15 @@ def sheet_zone(name, x, y, w, h) -> str:
 
 
 def dashboard(name: str, zones: list[str]) -> str:
+    sources = "".join(
+        f"<datasource caption={q(v['caption'])} name={q(v['id'])} />" for v in SOURCES.values()
+    )
     return (
         f"<dashboard name={q(name)}><style />"
         f"<size maxheight='900' maxwidth='1300' minheight='900' minwidth='1300' />"
+        f"<datasources>{sources}</datasources>"
         f"<zones><zone h='100000' id='{next(_zid)}' type-v2='layout-basic' w='100000' x='0' y='0'>"
-        f"{''.join(zones)}</zone></zones></dashboard>"
+        f"{''.join(zones)}</zone></zones><devicelayouts />{simple_id('db/' + name)}</dashboard>"
     )
 
 
@@ -350,11 +362,13 @@ def windows_xml() -> str:
         f"<card type='pages' /><card type='filters' /><card type='marks' /></strip></edge>"
         f"<edge name='top'><strip size='2147483647'><card type='columns' /></strip>"
         f"<strip size='2147483647'><card type='rows' /></strip><strip size='31'><card type='title' /></strip>"
-        f"</edge></cards></window>"
+        f"</edge></cards>{simple_id('win/' + n)}</window>"
         for n in SHEET_NAMES
     )
-    ds = "".join(f"<window class='dashboard' maximized='true' name={q(n)}><viewpoints /></window>"
-                 for n in DASHBOARDS)
+    ds = "".join(
+        f"<window class='dashboard' maximized='true' name={q(n)}><viewpoints /><active id='-1' />"
+        f"<device-preview visible='false' />{simple_id('win/' + n)}</window>"
+        for n in DASHBOARDS)
     return f"<windows source-height='30'>{ds}{ws}</windows>"
 
 
