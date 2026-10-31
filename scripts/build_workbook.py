@@ -58,8 +58,8 @@ SOURCES = {
         "id": "federated.weekly",
         "caption": "Weekly polyclinic attendances",
         "cols": {
-            "week_start": DATE, "week_end": DATE, "epi_year": DIM_I, "epi_week_num": DIM_I,
-            "epi_week_label": DIM_S, "disease": DIM_S, "disease_short": DIM_S, "sort_order": DIM_I,
+            "week_start": DIM_S, "week_end": DIM_S, "epi_year": DIM_I, "epi_week_num": DIM_I,
+            "epi_week_label": DIM_S, "year_fraction": MEA_R, "disease": DIM_S, "disease_short": DIM_S, "sort_order": DIM_I,
             "avg_daily_attendances": MEA_I, "baseline_n": MEA_R, "baseline_mean": MEA_R,
             "baseline_sd": MEA_R, "upper_limit": MEA_R, "lower_limit": MEA_R, "ratio_to_expected": MEA_R,
             "alert_status": DIM_S, "dq_note": DIM_S,
@@ -201,11 +201,11 @@ def member_filter(f: F, members: list[str], numeric: bool = False) -> str:
 
 
 def worksheet(name: str, src: str, rows: list[F], cols: list[F], mark: str,
-              color: F | None = None, text: F | None = None, size: F | None = None,
+              color: F | None = None, text: F | None = None, size: F | None = None, detail: F | None = None,
               filters: list[tuple[F, list[str], bool]] = (), extra: list[F] = (),
               title: str | None = None) -> str:
-    fields = {f.col: f for f in [*rows, *cols, *(x for x in (color, text, size) if x), *(x[0] for x in filters), *extra]}
-    instances = {f.inst: f for f in [*rows, *cols, *(x for x in (color, text, size) if x), *(x[0] for x in filters), *extra]}
+    fields = {f.col: f for f in [*rows, *cols, *(x for x in (color, text, size, detail) if x), *(x[0] for x in filters), *extra]}
+    instances = {f.inst: f for f in [*rows, *cols, *(x for x in (color, text, size, detail) if x), *(x[0] for x in filters), *extra]}
     # Columns used inside calculated fields must also be declared on the sheet.
     import re
     for f in list(fields.values()):
@@ -221,6 +221,8 @@ def worksheet(name: str, src: str, rows: list[F], cols: list[F], mark: str,
         enc += f"<text column={q(text.ref)} />"
     if size:
         enc += f"<size column={q(size.ref)} />"
+    if detail:
+        enc += f"<lod column={q(detail.ref)} />"
     filt = "".join(member_filter(f, m, n) for f, m, n in filters)
     if filters:
         filt += "<slices>" + "".join(f"<column>{escape(f.ref)}</column>" for f, _, _ in filters) + "</slices>"
@@ -272,8 +274,8 @@ SHEETS = [
               title="Chronic conditions (hyperlipidaemia, hypertension, diabetes) vs acute URTI"),
     worksheet("Weekly Ratio to Expected", W,
               rows=[dim(W, "disease_short"), mea(W, "ratio_to_expected", "Avg")],
-              cols=[F(W, "week_start", "Day-Trunc", "qk")], mark="Circle",
-              color=dim(W, "alert_status"),
+              cols=[mea(W, "year_fraction", "Avg")], mark="Circle",
+              color=dim(W, "alert_status"), detail=dim(W, "epi_week_label"),
               title="Weekly attendances as a ratio of expected (1.0 = baseline mean)"),
     worksheet("Alert Calendar", W,
               rows=[dim(W, "disease_short"), dim(W, "epi_year", "ok")], cols=[dim(W, "epi_week_num", "ok")],

@@ -138,6 +138,7 @@ SELECT
     f.epi_year,
     f.epi_week_num,
     e.epi_week_label,
+    ROUND(f.epi_year + (f.epi_week_num - 1) / 52.0, 4)     AS year_fraction,
     f.disease,
     d.disease_short,
     d.sort_order,

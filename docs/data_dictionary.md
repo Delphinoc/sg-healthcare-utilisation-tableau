@@ -90,6 +90,7 @@ The alert rule is a **screening flag** for review, not a statistical test of an 
 | `epi_year` | Epidemiological year |
 | `epi_week_num` | Epi week number (1–53) |
 | `epi_week_label` | `YYYY-Www` label |
+| `year_fraction` | epi_year + (epi_week_num − 1) / 52, a numeric time axis for charts |
 | `disease` | MOH disease name |
 | `disease_short` | Short label for charts |
 | `sort_order` | Display order for diseases |
